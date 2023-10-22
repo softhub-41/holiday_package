@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Travelite - Admin Home</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+</head>
+<!--<body class="travel_home" onload="getAllBookings()">-->
+<body class="travel_home" onload="includeHTML(); getadsession(); getAllBookings()">
+
+<div data-include-html="/admin-header"></div>
+
+<div id="travel_wrapper">
+    <!--content body start-->
+    <div id="content_wrapper">
+        <div class="page_title" data-stellar-background-ratio="0" data-stellar-vertical-offset="0"
+             style="background-image:url(/assets/images/bg/page_title_bg.jpg);">
+            <ul>
+                <li><a href="javascript:void(0);">booking(s)</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="full_width destinaion_sorting_section">
+        <div class="container">
+            <div class="row space_100">
+                <div class="col-lg-12">
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Hotel</th>
+                            <th>Package Type</th>
+                            <th>Booking Date</th>
+                            <th>Amount Paid</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="adminData"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let getAllBookings = () => {
+        fetch("/fetch-all-bookings").then((response) => response.json())
+            .then((value) => {
+                // console.log(value);
+                let {error, message, rows} = value
+                if (!error) {
+                    var output = "";
+                    if (rows.length > 0) {
+                        let i = 0;
+                        rows.forEach((row) => {
+                            output += "<tr>";
+                            output += "<td>" + (++i) + "</td>";
+                            output += "<td>" + row.hotel_name + "</td>";
+                            output += "<td class='text-capitalize'>" + row.pack_type + "</td>";
+                            output += "<td>" + row.book_date + "</td>";
+                            output += "<td> &#x20b9; " + row.book_amt + "</td>";
+                            output += "<td class='text-capitalize'>" + row.bookstatus + "</td>";
+                            output += "</tr>";
+                        })
+                    } else {
+                        output += "<tr>";
+                        output += "<td colspan='7' class='text-center'><h4 class='text-danger'>No Booking(s done yet)</h4></td>";
+                        output += "</tr>";
+                    }
+                    document.getElementById("adminData").innerHTML = output;
+                }
+            })
+    }
+</script>
+
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/datetimepicker/jquery.datetimepicker.js"></script>
+<!--<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.navigation.min.js">-->
+<!--</script>-->
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.slideanims.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.actions.min.js">
+</script>
+<!--<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.parallax.min.js">-->
+<!--</script>-->
+<!-- REVOLUTION JS FiLES -->
+<!-- video_popup -->
+<script type="text/javascript" src="/assets/js/plugin/video-popup/jquery.magnific-popup.js">
+</script>
+<!-- video_popup -->
+<!-- slick slider -->
+<script type="text/javascript" src="/assets/js/plugin/slick/jquery-migrate-1.2.1.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/slick/slick.min.js"></script>
+<!-- slick slider -->
+<!-- video player js -->
+<script src="/assets/js/plugin/video_player/mediaelement-and-player.min.js"></script>
+<!-- video player js -->
+<!-- pricefilter -->
+<script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+<!-- pricefilter-->
+<!--<script type="text/javascript" src="/assets/js/custom.js"></script>-->
+<!--main js file end-->
+<script>
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain attribute:*/
+            file = elmnt.getAttribute("data-include-html");
+            if (file) {
+                /*make an HTTP request using the attribute value as the file name:*/
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            elmnt.innerHTML = this.responseText;
+                        }
+                        if (this.status === 404) {
+                            elmnt.innerHTML = "Page not found.";
+                        }
+                        /*remove the attribute, and call this function once more:*/
+                        elmnt.removeAttribute("data-include-html");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                /*exit the function:*/
+                return;
+            }
+        }
+    }
+
+    function getadsession() {
+        fetch("/adm-sess-val").then((response) => response.text()).then((value) => {
+            // document.getElementById("adsess").innerHTML = value;
+        })
+    }
+</script>
+</body>
+
+</html>

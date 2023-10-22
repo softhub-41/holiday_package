@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Home</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body onload="includeHTML();getusersession();get_hotels();">
+<div data-include-html="/user-header"></div>
+<div id="travel_wrapper">
+    <!--content body start-->
+    <div id="content_wrapper">
+        <!--page title Start-->
+        <div class="page_title" data-stellar-background-ratio="0" data-stellar-vertical-offset="0"
+             style="background-image:url(/assets/images/bg/page_title_bg.jpg);">
+            <ul>
+                <li><a href="javascript:void(0)">Hotel package - booking</a></li>
+            </ul>
+        </div>
+
+        <!--page title end-->
+        <div class="clearfix"></div>
+
+        <!--        <div class="full_width destinaion_sorting_section">-->
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <div class="tour_package_booking_section">
+                        <!-- package tabs start -->
+                        <div id="tour_booking_tabs">
+                            <!-- booking_details Start -->
+                            <div id="booking_details" class="main_content_area hotel_main_content">
+                                <div class="inner_container">
+                                    <!--  tab inner section two Start -->
+                                    <div class="tab_inner_section hotel_inner_section">
+                                        <div class="heading_tab_inner">
+                                            <h5>hotel Details</h5>
+                                        </div>
+                                        <div id="hotel_details"></div>
+                                    </div>
+                                    <!-- tab inner section end -->
+
+                                </div>
+                                <!--  inner_container -->
+
+                            </div>
+                            <!-- booking_details End -->
+                        </div>
+                        <!-- package tabs End -->
+                    </div>
+                    <!-- right main start -->
+                </div>
+                <!-- col-lg-9-end -->
+            </div>
+            <!--  row main -->
+        </div>
+        <!-- container -->
+        <!--        </div>-->
+        <!-- main wrapper -->
+        <div class="clearfix"></div>
+
+    </div>
+    <!--Page main section end-->
+    <div data-include-html="/footer"></div>
+
+    <!--main js file start-->
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/datetimepicker/jquery.datetimepicker.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/parallax/jquery.parallax-1.1.3.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/owl/owl.carousel.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/isotope/jquery.isotope.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/bxslider/jquery-bxslider.js"></script>
+    <!-- pie chart js -->
+    <script type="text/javascript" src="/assets/js/plugin/pie-circle/circles.js"></script>
+    <!-- pie chart js -->
+    <!--counter js-->
+    <script type="text/javascript" src="/assets/js/plugin/counter/jquery.countTo.js"></script>
+    <!--counter js-->
+    <script type="text/javascript" src="/assets/js/plugin/counter/jquery.countdown.js"></script>
+    <!-- REVOLUTION JS FILES -->
+    <script type="text/javascript" src="/assets/js/plugin/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript"
+            src="/assets/js/plugin/revolution/js/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript"
+            src="/assets/js/plugin/revolution/js/revolution.extension.navigation.min.js"></script>
+    <script type="text/javascript"
+            src="/assets/js/plugin/revolution/js/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.actions.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.parallax.min.js"></script>
+    <!-- REVOLUTION JS FiLES -->
+    <!-- video_popup -->
+    <script type="text/javascript" src="/assets/js/plugin/video-popup/jquery.magnific-popup.js"></script>
+    <!-- video_popup -->
+    <!-- slick slider -->
+    <script type="text/javascript" src="/assets/js/plugin/slick/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugin/slick/slick.min.js"></script>
+    <!-- slick slider -->
+    <!-- video player js -->
+    <script src="/assets/js/plugin/video_player/mediaelement-and-player.min.js"></script>
+    <!-- video player js -->
+    <!-- pricefilter -->
+    <script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+    <!-- pricefilter-->
+    <script type="text/javascript" src="/assets/js/custom.js"></script>
+    <!--main js file end-->
+</div>
+
+<script src="/myjs/userjs.js"></script>
+<script>
+    function getusersession() {
+        fetch("/user-sess-val").then((response) => response.text()).then((value) => {
+            console.log(value);
+            document.getElementById("user_session").innerHTML = value;
+        })
+    }
+</script>
+</body>
+</html>

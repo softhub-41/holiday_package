@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>User SignUp</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+</head>
+<body class="travel_home" onload="includeHTML();">
+<div data-include-html="/public-header"></div>
+<!--Page main section start-->
+<div id="travel_wrapper">
+    <div id="content_wrapper">
+        <!--page title start-->
+        <div class="page_title" data-stellar-background-ratio="0" data-stellar-vertical-offset="0" style="background-image:url(assets/images/bg/page_title_bg.jpg);">
+            <ul>
+                <li><a href="javascript:void(0);">User SignUp</a></li>
+            </ul>
+        </div>
+        <!-- Home first slider start -->
+        <div class="slider_tab_main">
+
+            <div class="full_width travelite_world_section">
+                <div class="container">
+                    <div class="row">
+                        <div class="heading_team text-center">
+                            <h3>Create New Account</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <form id="signup">
+                                <div class="mb-2">
+                                    <label for="email" class="form-label">Email:</label>
+                                    <input type="email" class="form-control" id="email" name="email" required
+                                           data-msg-required="Email is required"/>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="fname" class="form-label">Full Name:</label>
+                                    <input type="text" class="form-control" id="fname" name="fname" required
+                                           data-msg-required="Full Name is required"/>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="pass" class="form-label">Password:</label>
+                                    <input type="password" class="form-control" id="pass" name="pass" required
+                                           data-msg-required="Password is required"/>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="cpass" class="form-label">Confirm Password:</label>
+                                    <input type="password" class="form-control" id="cpass" name="cpass" required
+                                           data-msg-required="Password is required" data-rule-equalto="#pass"/>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Gender:</label>
+                                    <div class="form-check-inline mt-1">
+                                        <input type="radio" class="form-check-input ms-2" id="male" name="gender"
+                                               checked value="Male"/> <label for="male"
+                                                                             class="form-check-label">Male</label>
+                                        <input type="radio" class="form-check-input ms-2" id="female" name="gender"
+                                               value="Female"/> <label for="female"
+                                                                       class="form-check-label">Female</label>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="phone" class="form-label">Phone No.</label>
+                                    <input type="text" name="phone" id="phone" class="form-control" required
+                                           data-msg-required="Phone No. is required" data-rule-number="true"/>
+                                </div>
+                                <div class="mb-2">
+                                    <button type="button" onclick="signup()" class="btn btn-primary">SUBMIT</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- counter section End -->
+        </div>
+        <!--content body end-->
+        <!--footer start-->
+        <div data-include-html="/footer"></div>
+        <!--footer end-->
+
+    </div>
+</div>
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/datetimepicker/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.navigation.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.slideanims.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.actions.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.parallax.min.js">
+</script>
+<!-- REVOLUTION JS FiLES -->
+<!-- video_popup -->
+<script type="text/javascript" src="/assets/js/plugin/video-popup/jquery.magnific-popup.js">
+</script>
+<!-- video_popup -->
+<!-- slick slider -->
+<script type="text/javascript" src="/assets/js/plugin/slick/jquery-migrate-1.2.1.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/slick/slick.min.js"></script>
+<!-- slick slider -->
+<!-- video player js -->
+<script src="/assets/js/plugin/video_player/mediaelement-and-player.min.js"></script>
+<!-- video player js -->
+<!-- pricefilter -->
+<script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+<!-- pricefilter-->
+<script type="text/javascript" src="/assets/js/custom.js"></script>
+<!--main js file end-->
+<script>
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain attribute:*/
+            file = elmnt.getAttribute("data-include-html");
+            if (file) {
+                /*make an HTTP request using the attribute value as the file name:*/
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            elmnt.innerHTML = this.responseText;
+                        }
+                        if (this.status === 404) {
+                            elmnt.innerHTML = "Page not found.";
+                        }
+                        /*remove the attribute, and call this function once more:*/
+                        elmnt.removeAttribute("data-include-html");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                /*exit the function:*/
+                return;
+            }
+        }
+    }
+
+    let signup = () => {
+        $("#signup").validate();
+        if ($("#signup").valid()) {
+            var ele = document.getElementById("signup").elements;
+            var formdata = new FormData();
+            for (let i = 0; i < ele.length; i++) {
+                if (ele[i].type !== "button" && ele[i].type !== "radio")
+                    formdata.append(ele[i].name, ele[i].value);
+            }
+            var male = document.getElementById("male");
+            if(male.checked){
+                formdata.append("gender","Male");
+            }
+            else
+                formdata.append("gender","Female");
+
+            fetch("/signup-action", {
+                method: "post",
+                body: formdata
+            }).then((response) => response.text()).then((value) => {
+                console.log(value);
+                if(value === "inserted"){
+                    document.getElementById("signup").reset();
+                    alert("User signed up successfully")
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>

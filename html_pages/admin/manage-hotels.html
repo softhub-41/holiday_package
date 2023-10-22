@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Manage Hotels & It's Gallery</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+</head>
+<body class="travel_home" onload="includeHTML();get_states(); get_hotels()">
+<div data-include-html="/admin-header"></div>
+
+<!--Page main section start-->
+<div id="travel_wrapper">
+    <div></div>
+    <!--content body start-->
+    <div id="content_wrapper">
+        <div class="clearfix"></div>
+        <!-- Home first slider start -->
+        <div class="slider_tab_main">
+
+            <div class="full_width travelite_world_section">
+                <div class="container">
+                    <div class="row">
+                        <div class="heading_team text-center">
+                            <h3>Manage Hotels & It's Gallery</h3>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+                        <i class="fa fa-add"></i>
+                    </button>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-dark mt-2">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Hotel&nbsp;Name</th>
+                                <th>Location</th>
+                                <th>Contact No. 1</th>
+                                <th>Contact No. 2</th>
+                                <th colspan="2" class="text-center">Controls</th>
+                                <th colspan="2" class="text-center">Gallery</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tdata"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- counter section End -->
+
+        </div>
+        <!--content body end-->
+        <!--footer start-->
+        <div data-include-html="/footer"></div>
+        <!--footer end-->
+    </div>
+
+    <!--    ADD HOTEL   -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add new Hotel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form id="addhotel">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-2">
+                                            <label for="hotel_name">Hotel Name:</label>
+                                            <input type="text" id="hotel_name" name="hotel_name" class="form-control"
+                                                   required data-msg-required="Hotel Name is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="state">State:</label>
+                                            <select name="state" id="state" class="form-control" required
+                                                    data-msg-required="State is required"
+                                                    onchange="get_cities(this.value)">
+                                            </select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="city">City Name:</label>
+                                            <select id="city" name="city" required class="form-control"
+                                                    data-msg-required="City name is required"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-2">
+                                            <label for="cphoto">Cover Photo:</label>
+                                            <input type="file" id="cphoto" name="cphoto" class="form-control" required
+                                                   data-msg-required="Cover Photo is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="cno1">Contact No. 1:</label>
+                                            <input type="text" id="cno1" name="cno1" class="form-control" required
+                                                   data-msg-required="Contact No. 1 is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="cno2">Contact No. 2:</label>
+                                            <input type="text" id="cno2" name="cno2" class="form-control"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="mb-2">
+                                            <label for="address">Address:</label>
+                                            <textarea id="address" rows="4" name="address" required class="form-control"
+                                                      data-msg-required="Address is required"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <button type="button" onclick="add_hotel()" class="btn btn-primary">SUBMIT
+                                            </button>
+                                            <div id="errmsg"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    EDIT HOTEL   -->
+    <div class="modal fade" id="upModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Hotel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="text-center">
+                                <img src="" alt="" id="displayImage">
+                            </div>
+                            <form id="updatehotel">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-2">
+                                            <label for="uhotel_name">Hotel Name:</label>
+                                            <input type="text" id="uhotel_name" name="hotel_name" class="form-control"
+                                                   required data-msg-required="Hotel Name is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="ustate">State:</label>
+                                            <select name="state" id="ustate" class="form-control" required
+                                                    data-msg-required="State is required"
+                                                    onchange="get_cities(this.value)">
+                                            </select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="ucity">City Name:</label>
+                                            <select id="ucity" name="city" required class="form-control"
+                                                    data-msg-required="City name is required"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-2">
+                                            <label for="ucphoto">Cover Photo:</label>
+                                            <input type="file" id="ucphoto" name="cphoto" class="form-control">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="u_cno1">Contact No. 1:</label>
+                                            <input type="text" id="u_cno1" name="u_cno1" class="form-control" required
+                                                   data-msg-required="Contact No. 1 is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="u_cno2">Contact No. 2:</label>
+                                            <input type="text" id="u_cno2" name="u_cno2" required class="form-control"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="mb-2">
+                                            <label for="uaddress">Address:</label>
+                                            <textarea id="uaddress" name="address" required
+                                                      class="form-control"
+                                                      data-msg-required="Address is required"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="button" onclick="updateHotelInfo()" class="btn btn-primary">SUBMIT
+                                        </button>
+                                        <div id="errMsgUpdate"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    ADD PHOTO   -->
+    <div class="modal fade" id="addPhotoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Photo(s)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form id="addPhotos">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <input type="hidden" id="hid" name="hid">
+                                        <div class="mb-2">
+                                            <label for="title">Title:</label>
+                                            <input type="text" id="title" name="title" class="form-control"
+                                                   required data-msg-required="Title is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <button type="button" onclick="add_hotel_pics()" class="btn btn-primary">
+                                                SUBMIT
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-2">
+                                            <label for="pic">Cover Photo:</label> <br/>
+
+                                            <input type="file" id="pic" name="pic" class="form-control" required
+                                                   data-msg-required="Photo is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <div id="perrmsg"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    EDIT PHOTO   -->
+    <div class="modal fade" id="viewPhotoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">View Photo(s)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" id="hphotos"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/datetimepicker/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.navigation.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.slideanims.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.actions.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.parallax.min.js">
+</script>
+<!-- REVOLUTION JS FiLES -->
+<!-- video_popup -->
+<script type="text/javascript" src="/assets/js/plugin/video-popup/jquery.magnific-popup.js">
+</script>
+<!-- video_popup -->
+<!-- slick slider -->
+<script type="text/javascript" src="/assets/js/plugin/slick/jquery-migrate-1.2.1.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/slick/slick.min.js"></script>
+<!-- slick slider -->
+<!-- video player js -->
+<script src="/assets/js/plugin/video_player/mediaelement-and-player.min.js"></script>
+<!-- video player js -->
+<!-- pricefilter -->
+<script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+<!-- pricefilter-->
+<script type="text/javascript" src="/assets/js/custom.js"></script>
+<!--main js file end-->
+
+<script>
+    function updateHotelInfo() {
+        if ($("#updatehotel").valid()) {
+            let formData = new FormData()
+            formData.append('hotel_id', localStorage.getItem('hotel_id'))
+            formData.append('hotelName', document.getElementById('uhotel_name').value)
+            formData.append('state', document.getElementById('ustate').value)
+            formData.append('city', document.getElementById('ucity').value)
+            formData.append('address', document.getElementById('uaddress').value)
+            formData.append('contactNum1', document.getElementById('u_cno1').value)
+            formData.append('contactNum2', document.getElementById('u_cno2').value)
+            formData.append('coverPhoto', document.getElementById('ucphoto').files[0])
+
+            fetch('/update-hotel-info', {
+                method: 'POST', body: formData
+            }).then(res => res.json()).then(data => {
+                console.log(data)
+                let {errorCode, message} = data
+                if (errorCode === 2) {
+                    get_hotels()
+                    $("#upModal").modal('hide')
+                    setTimeout(() => {
+                        alert(message)
+                    }, 500)
+                } else {
+                    alert(data)
+                }
+            })
+        }
+    }
+
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain attribute:*/
+            file = elmnt.getAttribute("data-include-html");
+            if (file) {
+                /*make an HTTP request using the attribute value as the file name:*/
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            elmnt.innerHTML = this.responseText;
+                        }
+                        if (this.status === 404) {
+                            elmnt.innerHTML = "Page not found.";
+                        }
+                        /*remove the attribute, and call this function once more:*/
+                        elmnt.removeAttribute("data-include-html");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                /*exit the function:*/
+                return;
+            }
+        }
+    }
+
+    let get_states = () => {
+        fetch("/get-states").then((response) => response.json()).then((value) => {
+            // console.log(value);
+            let output = "<option value=''>Select:</option>";
+            value.forEach((row) => {
+                output += `<option value="${row.state}">${row.state}</option>`;
+            })
+            document.getElementById("state").innerHTML = output
+            document.getElementById("ustate").innerHTML = output
+        })
+    }
+
+    function add_hotel() {
+        // $("#addhotel").validate();
+        if ($("#addhotel").valid()) {
+            let ele = document.getElementById("addhotel").elements;
+            let formdata = new FormData();
+            for (let i = 0; i < ele.length; i++) {
+                if (ele[i].type !== "button") {
+                    if (ele[i].type === "file")
+                        formdata.append(ele[i].name, ele[i].files[0]);
+                    formdata.append(ele[i].name, ele[i].value);
+                }
+            }
+            fetch("/add-hotel", {
+                method: "post", body: formdata
+            }).then((response) => response.text()).then((value) => {
+                if (value !== "exists") {
+                    document.getElementById("errmsg").innerHTML = "<div class='alert alert-success mt-3'>New Hotel added successfully</div>";
+                    document.getElementById("addhotel").reset();
+                    get_hotels();
+                } else {
+                    document.getElementById("errmsg").innerHTML = "<div class='alert alert-danger mt-3'>Hotel already exists</div>";
+
+                }
+            })
+        }
+    }
+
+    let get_cities = (state) => {
+        fetch("/get-cities-statewise/" + state).then((response) => response.json()).then((value) => {
+            // console.log(value)
+            if (value.length > 0) {
+                let output = "<option value=''>Select:</option>";
+                value.forEach((row) => {
+                    output += "<option value='" + row.city_id + "'>" + row.name + "</option>"
+                })
+                document.getElementById("city").innerHTML = output
+                document.getElementById("ucity").innerHTML = output
+            }
+        })
+    }
+
+    let get_hotels = () => {
+        fetch("/get-hotels").then((response) => response.json()).then((value) => {
+            // console.log(value);
+            let output = "";
+            let count = 1;
+            if (value.length > 0) {
+                for (let i = 0; i < value.length; i++) {
+                    let row = value[i]
+                    console.log(row)
+                    output += "<tr>"
+                    output += "<td>" + (count) + "</td>";
+                    output += `<td class='text-capitalize'><img src='${row.coverphoto}' style="width: 150px; height: 100px; border-radius: 4px" alt='Hotel Image'/> <br> ${row.hotel_name}</td>`;
+                    output += "<td class='text-capitalize'>" + row.address + ", " + row.name + ", " + row.state + " " + row.pincode + "</td>";
+                    output += "<td>+91 " + row.contactno1 + "</td>";
+                    if (row.contactno2 === "") {
+                        output += "<td>Null</td>";
+                    } else {
+                        output += "<td>+91 " + row.contactno2 + "</td>";
+                    }
+                    output += `<td class="text-center"><button class='btn btn-warning' type='button' onclick='up_hotel(${JSON.stringify(row)})'><i class='fa fa-edit'></i> </button></td>`;
+                    output += "<td class='text-center'><button class='btn btn-danger' type='button' onclick='del_hotel(" + JSON.stringify(row.hotel_id) + ")'><i class='fa fa-remove'></i> </button></td>";
+                    output += "<td class='text-center'><button type='button' class='btn btn-primary' onclick='add_photo(" + JSON.stringify(row.hotel_id) + ")' data-bs-toggle='modal' data-bs-target='#addPhotoModal'><i class='fa fa-plus'></i> Photo</button> </td>";
+                    output += "<td class='text-center'><button type='button' class='btn btn-success' onclick='view_photo(" + JSON.stringify(row.hotel_id) + "," + JSON.stringify(row.hotel_id) + ")' data-bs-toggle='modal' data-bs-target='#viewPhotoModal'><i class='fa fa-eye'></i> Photo</button></td>";
+                    output += "</tr>";
+                    count++
+                }
+            }
+            // else {
+            //     output = "";
+            // }
+            document.getElementById("tdata").innerHTML = output;
+        })
+    }
+
+    function del_hotel(id) {
+        if (confirm('Are you sure ?')) {
+            fetch("/delete-hotel/" + id).then((response) => response.text()).then((value) => {
+                console.log(value)
+                if (value === "deleted") {
+                    get_hotels();
+                } else {
+                    alert(value)
+                }
+            })
+        }
+
+    }
+
+    function up_hotel(row) {
+        // console.log(row)
+        let {
+            address,
+            city,
+            city_id,
+            contactno1,
+            contactno2,
+            coverphoto,
+            hotel_id,
+            hotel_name,
+            name,
+            pincode,
+            state,
+            status
+        } = row
+        localStorage.setItem("hotel_id", hotel_id)
+        document.getElementById('displayImage').style.height = "120px"
+        document.getElementById('displayImage').style.marginBottom = "1rem"
+        document.getElementById('displayImage').src = coverphoto
+        document.getElementById('u_cno1').value = contactno1
+        document.getElementById('u_cno2').value = contactno2
+        document.getElementById('uaddress').value = address
+        document.getElementById('uhotel_name').value = hotel_name
+        document.getElementById('ustate').disabled = true
+        get_states()
+        setTimeout(() => {
+            document.getElementById('ustate').value = state
+            get_cities(state)
+        }, 100)
+        setTimeout(() => {
+            document.getElementById('ucity').value = city
+        }, 200)
+        $("#upModal").modal('show')
+    }
+
+    let add_photo = (id) => {
+        document.getElementById("hid").value = id;
+    }
+
+    let add_hotel_pics = () => {
+        $("#addPhotos").validate();
+        if ($("#addPhotos").valid()) {
+            var ele = document.getElementById("addPhotos").elements;
+            var formdata = new FormData();
+            for (let i = 0; i < ele.length; i++) {
+                if (ele[i].type !== "button") {
+                    if (ele[i].type === "file")
+                        formdata.append(ele[i].name, ele[i].files[0]);
+                    formdata.append(ele[i].name, ele[i].value);
+                }
+            }
+            fetch("/add-hotel-photo", {
+                method: "post",
+                body: formdata
+            }).then((response) => response.text()).then((value) => {
+                if (value === "inserted") {
+                    document.getElementById("addPhotos").reset();
+                    document.getElementById("perrmsg").innerHTML = "<div class='alert alert-success'>Photo Added successfully</div>"
+
+                }
+            })
+        }
+    }
+
+    let view_photo = (hid) => {
+        fetch("/view-hphotos/" + hid).then((response) => response.json())
+            .then((value) => {
+                var output = "";
+                if (value.length > 0) {
+                    value.forEach((row) => {
+                        output += "<div class='col-lg-3'><div class='card'><img src='" + row.path + "' style='width: 100%; height: 120px' class='img-fluid'/>" +
+                            "<div class='row'> <div class='col-10'><span style='font-size: 18px'>" + row.title + "</span></div> <div class='col-2'><i class='fa fa-remove text-danger' onclick='del_photo(" + JSON.stringify(row.hg_id) + "," + JSON.stringify(row.hotel) + " )'></i></div>" +
+                            "</div></div></div>"
+                    })
+                    document.getElementById("hphotos").innerHTML = output;
+                } else {
+                    document.getElementById("hphotos").innerHTML = "<div class='alert alert-danger'>No photo(s) uploaded yet</div>";
+                }
+            })
+    }
+
+    let del_photo = (pid, hid) => {
+        fetch("/del-photo/" + pid).then((response) => response.text()).then((value) => {
+            if (value === "deleted") {
+                view_photo(hid)
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

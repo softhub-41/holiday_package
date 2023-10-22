@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Travelite - User Login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+</head>
+<body class="travel_home" onload="includeHTML()">
+<div data-include-html="/public-header"></div>
+<!--Page main section start-->
+<div id="travel_wrapper">
+    <div></div>
+    <!--content body start-->
+    <div id="content_wrapper">
+        <!--page title start-->
+        <div class="page_title" data-stellar-background-ratio="0" data-stellar-vertical-offset="0" style="background-image:url(assets/images/bg/page_title_bg.jpg);">
+            <ul>
+                <li><a href="javascript:void(0);">User Login</a></li>
+            </ul>
+        </div>
+        <!--page title end-->
+        <div class="clearfix"></div>
+        <!-- Home first slider start -->
+        <div class="slider_tab_main">
+            <div class="full_width travelite_world_section">
+                <div class="container">
+                    <div class="full_width">
+                        <div class="heading_team text-center">
+                            <h3>Login here</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3  ractangle_box_cover">
+                                <div class="full_width ractangle_inner">
+                                    <form id="userlogin">
+                                        <div class="mb-3">
+                                            <label for="email">Email:</label>
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                   required data-msg-required="*Email is required"/>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="password">Password:</label>
+                                            <input type="password" class="form-control" name="password"
+                                                   id="password" required data-msg-required="*Password is required"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" onclick="login()" class="btn btn-primary">SUBMIT
+                                            </button>
+                                            <div id="errmsg"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- counter section End -->
+        </div>
+        <!--content body end-->
+        <!--footer start-->
+        <div data-include-html="/footer"></div>
+        <!--footer end-->
+    </div>
+    <!--Page main section end-->
+</div>
+
+<!--main js file start-->
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/datetimepicker/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.navigation.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.slideanims.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.actions.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.parallax.min.js">
+</script>
+<!-- REVOLUTION JS FiLES -->
+<!-- video_popup -->
+<script type="text/javascript" src="/assets/js/plugin/video-popup/jquery.magnific-popup.js">
+</script>
+<!-- video_popup -->
+<!-- slick slider -->
+<script type="text/javascript" src="/assets/js/plugin/slick/jquery-migrate-1.2.1.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/slick/slick.min.js"></script>
+<!-- slick slider -->
+<!-- video player js -->
+<script src="/assets/js/plugin/video_player/mediaelement-and-player.min.js"></script>
+<!-- video player js -->
+<!-- pricefilter -->
+<script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+<!-- pricefilter-->
+<script type="text/javascript" src="/assets/js/custom.js"></script>
+<!--main js file end-->
+<script>
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain attribute:*/
+            file = elmnt.getAttribute("data-include-html");
+            if (file) {
+                /*make an HTTP request using the attribute value as the file name:*/
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            elmnt.innerHTML = this.responseText;
+                        }
+                        if (this.status === 404) {
+                            elmnt.innerHTML = "Page not found.";
+                        }
+                        /*remove the attribute, and call this function once more:*/
+                        elmnt.removeAttribute("data-include-html");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                /*exit the function:*/
+                return;
+            }
+        }
+    }
+
+    function login() {
+        $("#userlogin").validate();
+        if ($("#userlogin").valid()) {
+            var ele = document.getElementById("userlogin").elements;
+            var formdata = new FormData();
+            for (let i = 0; i < ele.length; i++) {
+                if (ele[i].type !== "button") {
+                    formdata.append(ele[i].name, ele[i].value);
+                }
+            }
+            fetch("/user-login-action", {
+                method: "post",
+                body: formdata
+            }).then((response) => response.text()).then((value) => {
+                if (value === "success") {
+                    // window.location.href ="/user-home";
+                    window.location.href = "/book-now";
+
+                } else {
+                    document.getElementById("errmsg").innerHTML = "<div class='alert alert-danger mt-2'>Incorrect Email or Password</div>";
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>

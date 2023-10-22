@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Manage Accommodations</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+</head>
+<body class="travel_home" onload="includeHTML(); get_hotels();get_accommodations()">
+<div data-include-html="/admin-header"></div>
+<!--Page main section start-->
+<div id="travel_wrapper">
+    <div></div>
+    <!--content body start-->
+    <div id="content_wrapper">
+        <div class="clearfix"></div>
+        <!-- Home first slider start -->
+        <div class="slider_tab_main">
+
+            <div class="full_width travelite_world_section">
+                <div class="container">
+                    <div class="row">
+                        <div class="heading_team text-center">
+                            <h3>Manage Accommodations</h3>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+                        <i class="fa fa-add"></i>
+                    </button>
+
+                    <table class="table table-dark mt-2">
+                        <thead>
+                        <tr class="text-center">
+                            <th>#</th>
+                            <th>Hotel Name</th>
+                            <th>Free Wifi</th>
+                            <th>Free Parking</th>
+                            <th>Restaurant</th>
+                            <th>24 Hour Room Service</th>
+                            <th>Breakfast</th>
+                            <th>Extra Bedding</th>
+                            <th>MiniBar</th>
+                            <th>Air Conditioner</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tdata"></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- counter section End -->
+
+        </div>
+        <!--content body end-->
+        <!--footer start-->
+        <div data-include-html="/footer"></div>
+        <!--footer end-->
+    </div>
+
+    <!--    ADD    -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Accommodation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form id="addaccommodation">
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="hotel_name">Select Hotel:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="hotel_name" name="hotel_name" class="form-control"
+                                                required data-msg-required="Hotel Name is required"></select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="free_wifi">Free Wifi:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="free_wifi" name="free_wifi" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="free_park">Free Parking:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="free_park" name="free_park" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="restaurant">Restaurant:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="restaurant" name="restaurant" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="two4hour_roomservice">24-Hour Room Service:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="two4hour_roomservice" name="two4hour_roomservice"
+                                                class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="breakfast">Breakfast:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="breakfast" name="breakfast" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="extra_bedding">Extra Bedding:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="extra_bedding" name="extra_bedding" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="minibar">Minibar:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="minibar" name="minibar" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="air_conditioner">Air Conditioner:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="air_conditioner" name="air_conditioner" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-4"></div>
+                                    <div class="col-lg-8">
+                                        <button type="button" onclick="add_accommodations()" class="btn btn-primary">
+                                            SUBMIT
+                                        </button>
+                                        <div id="res" class="mt-3"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    EDIT   -->
+    <div class="modal fade" id="upModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update City</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form id="updatehotel">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-2">
+                                            <label for="uhotel_name">Hotel Name:</label>
+                                            <input type="text" id="uhotel_name" name="hotel_name" class="form-control"
+                                                   required data-msg-required="Hotel Name is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="ustate">State:</label>
+                                            <select name="state" id="ustate" class="form-control" required
+                                                    data-msg-required="State is required"
+                                                    onchange="get_cities(this.value)">
+                                            </select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="ucity">City Name:</label>
+                                            <select id="ucity" name="city" required class="form-control"
+                                                    data-msg-required="City name is required"></select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="uaddress">Address:</label>
+                                            <textarea id="uaddress" rows="4" name="address" required
+                                                      class="form-control"
+                                                      data-msg-required="Address is required"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-2">
+                                            <label for="ucphoto">Cover Photo:</label> <br/>
+                                            <img src="" id="uphoto"/>
+                                            <input type="file" id="ucphoto" name="cphoto" class="form-control" required
+                                                   data-msg-required="Cover Photo is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="cno1">Contact No. 1:</label>
+                                            <input type="text" id="cno1" name="cno1" class="form-control" required
+                                                   data-msg-required="Contact No. 1 is required">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="cno2">Contact No. 2:</label>
+                                            <input type="text" id="cno2" name="cno2" class="form-control"/>
+                                        </div>
+                                        <div class="mt-50">
+                                            <button type="button" onclick="add_hotel()" class="btn btn-primary">SUBMIT
+                                            </button>
+                                            <div id="errmsg"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/datetimepicker/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.navigation.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.slideanims.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.actions.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/revolution/js/revolution.extension.parallax.min.js">
+</script>
+<!-- REVOLUTION JS FiLES -->
+<!-- video_popup -->
+<script type="text/javascript" src="/assets/js/plugin/video-popup/jquery.magnific-popup.js">
+</script>
+<!-- video_popup -->
+<!-- slick slider -->
+<script type="text/javascript" src="/assets/js/plugin/slick/jquery-migrate-1.2.1.min.js">
+</script>
+<script type="text/javascript" src="/assets/js/plugin/slick/slick.min.js"></script>
+<!-- slick slider -->
+<!-- video player js -->
+<script src="/assets/js/plugin/video_player/mediaelement-and-player.min.js"></script>
+<!-- video player js -->
+<!-- pricefilter -->
+<script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+<!-- pricefilter-->
+<script type="text/javascript" src="/assets/js/custom.js"></script>
+<!--main js file end-->
+
+<script>
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain attribute:*/
+            file = elmnt.getAttribute("data-include-html");
+            if (file) {
+                /*make an HTTP request using the attribute value as the file name:*/
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            elmnt.innerHTML = this.responseText;
+                        }
+                        if (this.status === 404) {
+                            elmnt.innerHTML = "Page not found.";
+                        }
+                        /*remove the attribute, and call this function once more:*/
+                        elmnt.removeAttribute("data-include-html");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                /*exit the function:*/
+                return;
+            }
+        }
+    }
+
+    let get_hotels = () => {
+        // alert();
+        fetch("/get-hotels").then((response) => response.json()).then((value) => {
+            // console.log(value);
+            let output = "";
+            let i = 0;
+            if (value.length > 0) {
+                output = "<option value=''>Please Select</button>"
+                value.forEach((row) => {
+                    output += "<option class='text-capitalize' value='" + row.hotel_id + "'>" + row.hotel_name + " (" + row.name + ")</option>"
+
+                })
+            } else {
+                output = "";
+            }
+            document.getElementById("hotel_name").innerHTML = output;
+        })
+    }
+
+    let add_accommodations = () => {
+        $("#addaccommodation").validate();
+        if ($("#addaccommodation").valid()) {
+            var ele = document.getElementById("addaccommodation").elements;
+            var formdata = new FormData();
+            for (let i = 0; i < ele.length; i++) {
+                if (ele[i].type !== "button")
+                    formdata.append(ele[i].name, ele[i].value);
+            }
+            fetch("/add-accommodation", {
+                method: "post",
+                body: formdata
+            }).then((response) => response.text()).then((value) => {
+                if (value === "exists") {
+                    document.getElementById("res").innerHTML = "<span class='text-danger'>Accommodation already exists</span>"
+                } else {
+                    document.getElementById("res").innerHTML = "<span class='text-success'>Accommodation added successfully</span>"
+                    document.getElementById("addaccommodation").reset();
+                    get_accommodations();
+                }
+            })
+        }
+    }
+
+    let get_accommodations = () => {
+        fetch("/get-accommodations").then((response) => response.json()).then((value) => {
+            console.log(value);
+            let output = "";
+            let i = 0;
+            value.forEach((row) => {
+                output += "<tr class='text-center'>";
+                output += "<td>" + (++i) + "</td>";
+                output += "<td>" + row.hotel_name + "</td>";
+                if (row.free_wifi === 1) {
+
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                if (row.free_parking === 1) {
+
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                if (row.restaurant === 1) {
+
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                if (row.two4hour_roomservice === 1) {
+
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                if (row.breakfast === 1) {
+
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                if (row.extra_bedding === 1) {
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                if (row.minibar === 1) {
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                if (row.air_conditioned === 1) {
+                    output += "<td><i class='fa fa-check-circle-o text-success fa-2x'></i> </td>";
+                } else {
+                    output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
+                }
+                output += "<td><button type='button' class='btn btn-danger btn-sm' onclick='del_acc(" + JSON.stringify(row.acc_id) + ")'><i class='fa fa-times'></i> </button> </td>";
+                output += "</tr>";
+            })
+            document.getElementById("tdata").innerHTML = output;
+        })
+    }
+
+    let del_acc = (id) => {
+        if (confirm('Are you sure ?')) {
+            fetch("/del-accommodation/" + id).then((response) => response.text()).then((value) => {
+                console.log(value);
+                if (value === "deleted") {
+                    get_accommodations();
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>

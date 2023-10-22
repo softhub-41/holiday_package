@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Booking Confirmation</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body onload="includeHTML()">
+<div data-include-html="/user-header"></div>
+<div id="travel_wrapper">
+    <!--content body start-->
+    <div id="content_wrapper">
+        <div class="row ">
+            <div class="col-lg-4 offset-lg-4 ">
+                <img src="/images/verified.gif" style="width: 100%;" alt="Confirmation"/>
+                <h2 class="display-6 text-center">Booking Confirmed</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/myjs/userjs.js"></script>
+<script>
+    function getusersession() {
+        fetch("/user-sess-val").then((response) => response.text()).then((value) => {
+            console.log(value);
+            document.getElementById("user_session").innerHTML = value;
+        })
+    }
+</script>
+</body>
+</html>

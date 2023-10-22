@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Home</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>
+    <meta name="keywords" content="Travel, html template, Travelite template">
+    <meta name="MobileOptimized" content="320">
+    <!-- font-awsome-link -->
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <!--srart theme style -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        .accoms {
+            display: inline-block;
+            font-size: 12px;
+            /*width: 140px;*/
+            /*color: #fff;*/
+            /*background-color: #86B817;*/
+            border: 1px solid #86B817;
+            padding: 5px;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+
+        .accoms:not(:last-child) {
+            margin-right: 10px;
+        }
+
+        .package {
+            display: inline-block;
+            width: 140px;
+            /*color: #fff;*/
+            /*background-color: #86B817;*/
+            padding: 5px 0;
+            /*text-align: center;*/
+            font-weight: 600;
+            border-radius: 6px;
+        }
+
+        .package:not(:last-child) {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<!--<body onload="includeHTML();getUserSession()">-->
+<body onload="includeHTML();getUserSession();getPackages();">
+
+<!--Page main section start-->
+<div id="travel_wrapper">
+    <div data-include-html="/user-header"></div>
+
+    <!--content body start-->
+    <div id="content_wrapper">
+        <!-- BREADCRUMB-->
+        <div class="page_title" data-stellar-background-ratio="0" data-stellar-vertical-offset="0"
+             style="background-image:url(/assets/images/bg/page_title_bg.jpg);">
+            <ul>
+                <li>Tour Destination</li>
+            </ul>
+        </div>
+        <!-- // BREADCRUMB -->
+        <div class="clearfix"></div>
+
+        <div class="full_width destinaion_sorting_section">
+            <div class="container">
+                <div class="row mb-4" id="packagesDiv"></div>
+            </div>
+        </div>
+        <!--content body end-->
+
+        <!-- FOOTER -->
+        <footer id="footer_wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <aside class="widget widget_text">
+                            <a href="#">
+                                <img src="/assets/svg/Logo.svg" alt="footer logo">
+                            </a>
+                            <p>In 2015, We launched Travellers with the belief that other travellers would share our
+                                desire to experience authentic adventures in a responsible and sustainable manner.</p>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <aside class="widget widget_links">
+                            <h4 class="widget-title">Useful Links</h4>
+                            <ul>
+                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/contact">Contact Us</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <aside class="widget payment_method">
+                            <h4 class="widget-title">Supported Payment Method</h4>
+                            <a href="#"><img src="/assets/images/Payment-Images.png" alt="Payment Method"/></a>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- // FOOTER -->
+
+        <!-- FOOTER bottom -->
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 text-center"><span>Stay Connected with Us -</span> <a href="#"><i
+                            class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i
+                            class="fa fa-google-plus"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a
+                            href="#"><i class="fa fa-rss"></i></a></div>
+                    <div class="col-md-6 col-sm-6 text-center"><span>Travellers@2023. All Right Reserved</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Page main section end-->
+
+    <script>
+        function getPackages() {
+            fetch("/get-hotel-packages-2").then((response) => response.json()).then((value) => {
+                let {error, message, rows} = value
+                if (!error) {
+                    renderPackages(rows)
+                }
+            })
+        }
+
+        function renderPackages(rows) {
+            // console.log(rows)
+            let html = ``
+            for (let row of rows) {
+                html += ` <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="tour_packages_right_section left_space_40">
+                            <div class="full_width hotel_list_sorting">
+                                <!--sort_list start -->
+                                <div class="sorting_places_wrap  list_sorting_view">
+                                    <div class="row">
+                                        <div class="col-lg-5 padding_none">
+                                            <div class="d-flex align-items-center h-100">
+                                                <div class="thumb_wrape">
+                                                    <img src="${row.coverphoto}" class="img-responsive"
+                                                         alt="list thumb">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-7">
+                                            <div class="desc_right_list_hotel">
+                                                <div class="bottom_title row">
+                                                    <div class="col-12 mt-3 mt-sm-3 mt-lg-0">
+                                                        <h4><a  class="text-dark" href="#">${row.hotel_name}</a> <small style="font-size: 12px">(${row.name})</small></h4>
+                                                    </div>
+                                                </div>
+
+                                                <!-- hotel_feature_icons-->
+
+                                                <!-- desc icons End-->
+                                                <div class="bottom_review_rating">
+                                                    <hr>
+                                                    <h6>Accommodations</h6>
+                                                    <div>${renderAccommodations(row.accommodations)}</div>
+                                                    <hr>
+                                                     <h6>Packages</h6>
+                                                     <div>${renderPackagesAvailable(row)}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--sort_list start end-->
+                            </div>
+                        </div>
+                    </div>`
+            }
+            document.getElementById('packagesDiv').innerHTML = html
+        }
+
+        function renderPackagesAvailable(row) {
+            let {silver, gold, platinum} = row
+            let html = `<p>`
+            html += `<span class="package">Gold &#x20b9;${gold}</span> <button type="button" onclick="PayNow(${row.pck_id}, 'gold', ${row.gold})" class="btn_green proceed_buttton btns">book now</button>`
+            html += `</p>`
+
+            html += `<p>`
+            html += `<span class="package">Silver &#x20b9;${silver}</span> <button type="button" onclick="PayNow(${row.pck_id}, 'silver', ${row.silver})" class="btn_green proceed_buttton btns">book now</button>`
+            html += `</p>`
+
+            html += `<p>`
+            html += `<span class="package">Platinum &#x20b9;${platinum}</span> <button type="button" onclick="PayNow(${row.pck_id}, 'platinum', ${row.platinum})" class="btn_green proceed_buttton btns">book now</button>`
+            html += `</p>`
+            return html
+        }
+
+        function renderAccommodations(accommodations) {
+            console.log(accommodations)
+            let html = ``
+            if (accommodations.length === 0) {
+                html += `<strong class="text-danger">*No Data Found</strong>`
+            } else {
+                for (let val of accommodations) {
+                    if (val.air_conditioned) {
+                        html += `<span class="accoms">Air Conditioned</span>`
+                    }
+                    if (val.breakfast) {
+                        html += `<span class="accoms">Breakfast</span>`
+                    }
+                    if (val.extra_bedding) {
+
+                    }
+                    if (val.free_parking) {
+                        html += `<span class="accoms">Breakfast</span>`
+                    }
+                    if (val.free_wifi) {
+                        html += `<span class="accoms">Wifi</span>`
+                    }
+                    if (val.minibar) {
+
+                    }
+                    if (val.restaurant) {
+
+                    }
+                    if (val.two4hour_roomservice) {
+                        html += `<span class="accoms">Room Service</span>`
+                    }
+                }
+            }
+            return html
+        }
+    </script>
+
+    <!--main js file start-->
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="assets/js/plugin/datetimepicker/jquery.datetimepicker.js"></script>
+    <script type="text/javascript" src="assets/js/plugin/parallax/jquery.parallax-1.1.3.js"></script>
+    <script type="text/javascript" src="assets/js/plugin/owl/owl.carousel.js"></script>
+    <script type="text/javascript" src="assets/js/plugin/isotope/jquery.isotope.js"></script>
+    <script type="text/javascript" src="assets/js/plugin/bxslider/jquery-bxslider.js"></script>
+    <!-- pie chart js -->
+    <script type="text/javascript" src="assets/js/plugin/pie-circle/circles.js"></script>
+    <!-- pie chart js -->
+    <!--counter js-->
+    <script type="text/javascript" src="assets/js/plugin/counter/jquery.countTo.js">
+    </script>
+    <!--counter js-->
+    <script type="text/javascript" src="assets/js/plugin/counter/jquery.countdown.js">
+    </script>
+    <!-- REVOLUTION JS FILES -->
+    <script type="text/javascript" src="assets/js/plugin/revolution/js/jquery.themepunch.tools.min.js">
+    </script>
+    <script type="text/javascript" src="assets/js/plugin/revolution/js/jquery.themepunch.revolution.min.js">
+    </script>
+    <script type="text/javascript" src="assets/js/plugin/revolution/js/revolution.extension.layeranimation.min.js">
+    </script>
+    <script type="text/javascript" src="assets/js/plugin/revolution/js/revolution.extension.navigation.min.js">
+    </script>
+    <script type="text/javascript" src="assets/js/plugin/revolution/js/revolution.extension.slideanims.min.js">
+    </script>
+    <script type="text/javascript" src="assets/js/plugin/revolution/js/revolution.extension.actions.min.js">
+    </script>
+    <script type="text/javascript" src="assets/js/plugin/revolution/js/revolution.extension.parallax.min.js">
+    </script>
+    <!-- REVOLUTION JS FiLES -->
+    <!-- video_popup -->
+    <script type="text/javascript" src="assets/js/plugin/video-popup/jquery.magnific-popup.js">
+    </script>
+    <!-- video_popup -->
+    <!-- slick slider -->
+    <script type="text/javascript" src="assets/js/plugin/slick/jquery-migrate-1.2.1.min.js">
+    </script>
+    <script type="text/javascript" src="assets/js/plugin/slick/slick.min.js"></script>
+    <!-- slick slider -->
+    <!-- video player js -->
+    <script src="assets/js/plugin/video_player/mediaelement-and-player.min.js"></script>
+    <!-- video player js -->
+    <!-- pricefilter -->
+    <script src="assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+    <!-- pricefilter-->
+
+    <script type="text/javascript" src="assets/js/custom.js"></script>
+    <!--main js file end-->
+</div>
+
+<!-- SCRIPTS -->
+<script src="/myjs/userjs.js"></script>
+
+<script>
+    function getUserSession() {
+        fetch("/user-sess-val").then((response) => response.text()).then((value) => {
+            setTimeout(() => document.getElementById("user_session").innerHTML = value, 50)
+        })
+    }
+</script>
+
+</body>
+</html>
