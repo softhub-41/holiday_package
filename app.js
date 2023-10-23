@@ -1,6 +1,7 @@
 let express = require("express");
 let app = express();
-let mysql = require('mysql');
+// let mysql = require('mysql');
+let mysql2 = require('mysql2');
 let path = require('path');
 let fileUpload = require('express-fileupload');
 let session = require('express-session');
@@ -9,17 +10,28 @@ let session = require('express-session');
 let {updateHotel} = require('./controller/adminController')
 
 /* db connection */
-let conn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "system",
-    database: "node_holiday_packages"
+let conn = mysql2.createConnection({
+    host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
+    user: "avnadmin",
+    password: "AVNS_MEcxmr-rbReoCIFyj4t",
+    database: "defaultdb",
+    port: "24387"
 })
+
+// let conn = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "system",
+//     database: "node_holiday_packages"
+// })
+
 conn.connect((err) => {
     if (err) {
         console.log(err.message)
+    }else{
+        console.log("connected")
     }
-    // console.log("db connected");
+    // return console.log("db connected");
 })
 /* db connection (end) */
 
@@ -45,6 +57,12 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_pages/index.html"));
 
 })
+
+// app.get("/test", isUserLoggedIn,(req, res) => {
+//     res.sendFile(path.join(__dirname + "/html_pages/test.html"));
+//
+// })
+
 app.get("/public-header", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_pages/public_header.html"));
 })
@@ -642,6 +660,13 @@ app.post("/user-change-password-action", (req, res) => {
         } else {
             res.send("old not");
         }
+    })
+})
+
+app.get('*', (req, res) => {
+    res.json({
+        status: "404",
+        message: "Page not found!"
     })
 })
 let port = 3000;

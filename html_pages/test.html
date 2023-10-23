@@ -1,0 +1,64 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="utf-8"/>-->
+<!--    <title>User SignUp</title>-->
+<!--    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>-->
+<!--    <meta name="description" content="Travelite - Tours and Travels Online Booking HTML"/>-->
+<!--    <meta name="keywords" content="Travel, html template, Travelite template">-->
+<!--    <meta name="MobileOptimized" content="320">-->
+<!--    &lt;!&ndash; font-awsome-link &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="/assets/css/all.min.css">-->
+<!--    &lt;!&ndash;srart theme style &ndash;&gt;-->
+<!--    <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>-->
+<!--    &lt;!&ndash; end theme style &ndash;&gt;-->
+<!--    &lt;!&ndash; favicon links &ndash;&gt;-->
+<!--    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>-->
+<!--    <link rel="icon" type="image/ico" href="/images/favicon.ico"/>-->
+<!--</head>-->
+<!--<body class="travel_home" onload="includeHTML();">-->
+<!--&lt;!&ndash;Page main section start&ndash;&gt;-->
+<!--<div id="travel_wrapper">-->
+<!--    <div data-include-html="/public-header"></div>-->
+<!--    <h1>hello</h1>-->
+<!--    <div data-include-html="/footer"></div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    function includeHTML() {-->
+<!--        var z, i, elmnt, file, xhttp;-->
+<!--        /*loop through a collection of all HTML elements:*/-->
+<!--        z = document.getElementsByTagName("*");-->
+<!--        for (i = 0; i < z.length; i++) {-->
+<!--            elmnt = z[i];-->
+<!--            /*search for elements with a certain attribute:*/-->
+<!--            file = elmnt.getAttribute("data-include-html");-->
+<!--            if (file) {-->
+<!--                /*make an HTTP request using the attribute value as the file name:*/-->
+<!--                xhttp = new XMLHttpRequest();-->
+<!--                xhttp.onreadystatechange = function () {-->
+<!--                    if (this.readyState === 4) {-->
+<!--                        if (this.status === 200) {-->
+<!--                            elmnt.innerHTML = this.responseText;-->
+<!--                        }-->
+<!--                        if (this.status === 404) {-->
+<!--                            elmnt.innerHTML = "Page not found.";-->
+<!--                        }-->
+<!--                        /*remove the attribute, and call this function once more:*/-->
+<!--                        elmnt.removeAttribute("data-include-html");-->
+<!--                        includeHTML();-->
+<!--                    }-->
+<!--                }-->
+<!--                xhttp.open("GET", file, true);-->
+<!--                xhttp.send();-->
+<!--                /*exit the function:*/-->
+<!--                return;-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+
+
+
+<!--</html>-->

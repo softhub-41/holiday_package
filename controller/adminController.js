@@ -1,12 +1,23 @@
-let mysql = require('mysql');
+let mysql2 = require('mysql2');
+
 
 /* db connection */
-let conn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "system",
-    database: "node_holiday_packages"
+let conn = mysql2.createConnection({
+    host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
+    user: "avnadmin",
+    password: "AVNS_MEcxmr-rbReoCIFyj4t",
+    database: "defaultdb",
+    port: "24387"
 })
+
+// let mysql = require('mysql');
+
+// let conn = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "system",
+//     database: "node_holiday_packages"
+// })
 conn.connect((err) => {
     if (err) {
         console.log(err.message)

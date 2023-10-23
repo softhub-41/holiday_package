@@ -44,6 +44,7 @@
                             <th>Booking Date</th>
                             <th>Amount Paid</th>
                             <th>Status</th>
+                            <!-- <th>Rating</th> -->
                         </tr>
                         </thead>
                         <tbody id="adminData"></tbody>
@@ -72,6 +73,7 @@
                             output += "<td>" + row.book_date + "</td>";
                             output += "<td> &#x20b9; " + row.book_amt + "</td>";
                             output += "<td class='text-capitalize'>" + row.bookstatus + "</td>";
+                            // output += "<td class='text-capitalize'>" + "string" + "</td>";
                             output += "</tr>";
                         })
                     } else {
