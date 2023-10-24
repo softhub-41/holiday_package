@@ -11,8 +11,8 @@ let conn = mysql2.createConnection({
 })
 
 // let mysql = require('mysql');
-/* db connection */
 
+/* db connection */
 // let conn = mysql.createConnection({
 //     host: "localhost",
 //     user: "root",
