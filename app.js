@@ -1,7 +1,7 @@
 let express = require("express");
 let app = express();
-// let mysql = require('mysql');
-let mysql2 = require('mysql2');
+let mysql = require('mysql');
+// let mysql2 = require('mysql2');
 let path = require('path');
 let fileUpload = require('express-fileupload');
 let session = require('express-session');
@@ -10,20 +10,20 @@ let session = require('express-session');
 let {updateHotel} = require('./controller/adminController')
 
 /* db connection */
-let conn = mysql2.createConnection({
-    host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
-    user: "avnadmin",
-    password: "AVNS_MEcxmr-rbReoCIFyj4t",
-    database: "defaultdb",
-    port: "24387"
-})
-
-// let conn = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "system",
-//     database: "node_holiday_packages"
+// let conn = mysql2.createConnection({
+//     host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
+//     user: "avnadmin",
+//     password: "AVNS_MEcxmr-rbReoCIFyj4t",
+//     database: "defaultdb",
+//     port: "24387"
 // })
+
+let conn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "system",
+    database: "node_holiday_packages"
+})
 
 conn.connect((err) => {
     if (err) {
@@ -60,7 +60,7 @@ app.get("/", (req, res) => {
 
 // app.get("/test", isUserLoggedIn,(req, res) => {
 //     res.sendFile(path.join(__dirname + "/html_pages/test.html"));
-//
+
 // })
 
 app.get("/public-header", (req, res) => {
@@ -369,6 +369,24 @@ app.post("/add-accommodation", (req, res) => {
                 res.send("inserted")
             })
         }
+    })
+})
+
+app.post("/update-accommodation", (req, res) => {
+    let acc_id = req.body.acc_id;
+    let free_wifi = req.body.ufree_wifi;
+    let free_parking = req.body.ufree_park;
+    let restaurant = req.body.urestaurant;
+    let two4hour_roomservice = req.body.utwo4hour_roomservice;
+    let breakfast = req.body.ubreakfast;
+    let extra_bedding = req.body.uextra_bedding;
+    let minibar = req.body.uminibar;
+    let air_conditioner = req.body.uair_conditioner;
+    let upSQL = "update accommodations set free_wifi=" + free_wifi + ",free_parking=" + free_parking + ",restaurant=" + restaurant +",two4hour_roomservice=" + two4hour_roomservice +",breakfast=" + breakfast +",extra_bedding=" + extra_bedding +",minibar=" + minibar + ",air_conditioned=" + air_conditioner + " where acc_id=" + acc_id;
+    console.log(upSQL)
+    conn.query(upSQL, (err) => {
+        if(err) return res.send(err.message);
+        res.send("updated");
     })
 })
 

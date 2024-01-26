@@ -51,6 +51,7 @@
                             <th>Extra Bedding</th>
                             <th>MiniBar</th>
                             <th>Air Conditioner</th>
+                            <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -194,8 +195,131 @@
         </div>
     </div>
 
+      <!--    ADD    -->
+      <div class="modal fade" id="upModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Accommodation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form id="editaccommodation">
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <input type="hidden" id="acc_id" name="acc_id"/>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="ufree_wifi">Free Wifi:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="ufree_wifi" name="ufree_wifi" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="ufree_park">Free Parking:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="ufree_park" name="ufree_park" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="urestaurant">Restaurant:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="urestaurant" name="urestaurant" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="utwo4hour_roomservice">24-Hour Room Service:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="utwo4hour_roomservice" name="utwo4hour_roomservice"
+                                                class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="ubreakfast">Breakfast:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="ubreakfast" name="ubreakfast" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="uextra_bedding">Extra Bedding:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="uextra_bedding" name="uextra_bedding" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="uminibar">Minibar:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="uminibar" name="uminibar" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-3 offset-lg-1">
+                                        <label for="uair_conditioner">Air Conditioner:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="uair_conditioner" name="uair_conditioner" class="form-control">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-4"></div>
+                                    <div class="col-lg-8">
+                                        <button type="button" onclick="update_accommodations()" class="btn btn-primary">
+                                            SUBMIT
+                                        </button>
+                                        <div id="res" class="mt-3"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--    EDIT   -->
-    <div class="modal fade" id="upModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="upModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -265,7 +389,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
@@ -376,6 +500,45 @@
         }
     }
 
+    let update_accommodations = () => {
+        // alert("upodating");
+        $("#editaccommodation").validate();
+        if ($("#editaccommodation").valid()) {
+            var ele = document.getElementById("editaccommodation").elements;
+            console.log(ele)
+            var formdata = new FormData();
+            for (let i = 0; i < ele.length; i++) {
+                // console.log(ele[i].name, ele[i].value)
+                if (ele[i].type !== "button")
+                    formdata.append(ele[i].name, ele[i].value);
+            }
+
+            // console.log(formdata);
+            fetch("/update-accommodation", {
+                method: "post",
+                body: formdata
+            }).then((response) => response.text()).then((value) => {
+                if (value === "updated") {
+                    get_accommodations()
+                    alert(value)
+                    $('#upModal').modal('hide')
+                }
+            })
+        }
+    }
+
+    function fill_values(row) {
+        document.getElementById("acc_id").value = row.acc_id;
+        document.getElementById("ufree_wifi").value = row.free_wifi;
+        document.getElementById("ufree_park").value = row.free_parking;
+        document.getElementById("urestaurant").value = row.restaurant;
+        document.getElementById("utwo4hour_roomservice").value = row.two4hour_roomservice;
+        document.getElementById("ubreakfast").value = row.breakfast;
+        document.getElementById("uextra_bedding").value = row.extra_bedding;
+        document.getElementById("uminibar").value = row.minibar;
+        document.getElementById("uair_conditioner").value = row.air_conditioned;
+    }
+
     let get_accommodations = () => {
         fetch("/get-accommodations").then((response) => response.json()).then((value) => {
             console.log(value);
@@ -430,6 +593,7 @@
                 } else {
                     output += "<td><i class='fa fa-remove text-danger fa-2x'></i></td>";
                 }
+                output += "<td><button type='button' onclick='fill_values(" + JSON.stringify(row) + ")' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#upModal'><i class='fa fa-edit'></i> </button> </td>";
                 output += "<td><button type='button' class='btn btn-danger btn-sm' onclick='del_acc(" + JSON.stringify(row.acc_id) + ")'><i class='fa fa-times'></i> </button> </td>";
                 output += "</tr>";
             })
