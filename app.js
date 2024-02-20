@@ -1,29 +1,42 @@
 let express = require("express");
 let app = express();
-// let mysql = require('mysql');
-let mysql2 = require('mysql2');
+let mysql = require('mysql');
+// let mysql2 = require('mysql2');
 let path = require('path');
 let fileUpload = require('express-fileupload');
 let session = require('express-session');
+let nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    auth: {
+        user: "kendrick38@ethereal.email",
+        pass: "exgNke3MyhnXutp7vM",
+    },
+});
+
+// *Nodemailer*
+
 
 /* CONTROLLERS */
 let {updateHotel} = require('./controller/adminController')
 
 /* db connection */
-let conn = mysql2.createConnection({
-    host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
-    user: "avnadmin",
-    password: "AVNS_MEcxmr-rbReoCIFyj4t",
-    database: "defaultdb",
-    port: "24387"
-})
-
-// let conn = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "system",
-//     database: "node_holiday_packages"
+// let conn = mysql2.createConnection({
+//     host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
+//     user: "avnadmin",
+//     password: "AVNS_MEcxmr-rbReoCIFyj4t",
+//     database: "defaultdb",
+//     port: "24387"
 // })
+
+let conn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "system",
+    database: "node_holiday_packages"
+})
 
 conn.connect((err) => {
     if (err) {
@@ -476,7 +489,8 @@ app.get("/signup", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_pages/signup.html"))
 
 })
-app.post("/signup-action", (req, res) => {
+
+app.post("/signup-action", async (req, res) => {
     console.log(req.body);
     let email = req.body.email;
     let fname = req.body.fname;
@@ -492,13 +506,25 @@ app.post("/signup-action", (req, res) => {
         } else {
             let insertSQL = "insert into users values('" + email + "', '" + fname + "','" + gender + "','" + phone + "','" + pass + "')";
             console.log(insertSQL);
-            conn.query(insertSQL, (e) => {
-                if (e)
+            conn.query(insertSQL, async (e) => {
+                if (e) {
+
                     res.send(e.message);
-                res.send("inserted");
+                } else {
+
+                    const test = await transporter.sendMail({
+                        from: "vaibhavaggarwal056@gmail.com", // sender address
+                        to: "vaibhavaggarwal056@gmail.com", // list of receivers
+                        subject: "New user account", // Subject line
+                        text: "Account created successfully", // plain text body
+                        html: "Account created successfully", // html body
+                    });
+                    console.log("asdad",test)
+                    res.send("inserted");
+                }
             })
         }
-    })
+    })     
 })
 
 app.get("/login", (req, res) => {
