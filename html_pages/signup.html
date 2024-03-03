@@ -15,6 +15,9 @@
     <!-- favicon links -->
     <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
     <link rel="icon" type="image/ico" href="/images/favicon.ico"/>
+
+  
+
 </head>
 <body class="travel_home" onload="includeHTML();">
 <div data-include-html="/public-header"></div>
@@ -123,10 +126,37 @@
 <!-- video player js -->
 <!-- pricefilter -->
 <script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
+
+<!-- emailjs -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <!-- pricefilter-->
 <script type="text/javascript" src="/assets/js/custom.js"></script>
 <!--main js file end-->
 <script>
+
+    (function(){
+        emailjs.init({
+            publicKey: "LDIddHSWAoxZoElz4",
+        });
+    })();
+
+
+    function sendEmail(username) {
+        var templateParams = {
+            name: username,
+        };
+        
+        emailjs.send('service_m51j99c', 'template_8wkk5xt', templateParams).then(   
+            (response) => {
+                console.log('SUCCESS!', response.status, response.text);
+            },
+            (error) => {
+                console.log('FAILED...', error);
+            },
+        );
+
+    }
     function includeHTML() {
         var z, i, elmnt, file, xhttp;
         /*loop through a collection of all HTML elements:*/
@@ -168,6 +198,8 @@
                 if (ele[i].type !== "button" && ele[i].type !== "radio")
                     formdata.append(ele[i].name, ele[i].value);
             }
+
+            console.log(formdata.get("fname"))
             var male = document.getElementById("male");
             if(male.checked){
                 formdata.append("gender","Male");
@@ -181,6 +213,7 @@
             }).then((response) => response.text()).then((value) => {
                 console.log(value);
                 if(value === "inserted"){
+                    sendEmail(formdata.get("fname"));
                     document.getElementById("signup").reset();
                     alert("User signed up successfully")
                 }
