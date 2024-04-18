@@ -34,7 +34,7 @@
         <!-- Home first slider start -->
         <div class="slider_tab_main">
             <div class="full_width travelite_world_section">
-                <div class="container">
+                 <div class="container" id="userloginform">
                     <div class="full_width">
                         <div class="heading_team text-center">
                             <h3>Login here</h3>
@@ -60,6 +60,30 @@
                                         </div>
                                     </form>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="container" id="userverifyotp" style="display: none;">
+                    <div class="heading_team text-center">
+                        <h3>Verify otp</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3  ractangle_box_cover">
+                            <div class="full_width ractangle_inner">
+                                <form id="otpverify">
+                                    <div class="mb-3">
+                                        <label for="email">Enter OTP:</label>
+                                        <input type="email" class="form-control" name="otp" id="otp"
+                                               required data-msg-required="*Otp is required"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" onclick="verifyotp()" class="btn btn-primary">SUBMIT
+                                        </button>
+                                        <div id="errmsg"></div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -106,6 +130,8 @@
 <script src="/assets/js/plugin/jquery-ui/jquery-ui.js"></script>
 <!-- pricefilter-->
 <script type="text/javascript" src="/assets/js/custom.js"></script>
+<!-- emailjs -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <!--main js file end-->
 <script>
     function includeHTML() {
@@ -140,6 +166,30 @@
         }
     }
 
+
+    (function(){
+        emailjs.init({
+            publicKey: "LDIddHSWAoxZoElz4",
+        });
+    })();
+
+
+    function sendEmail() {
+        var templateParams = {
+            userotp: localStorage.getItem("otp"),
+        };
+        
+        emailjs.send('service_m51j99c', 'template_npbdwwg', templateParams).then(   
+            (response) => {
+                console.log('SUCCESS!', response.status, response.text);
+            },
+            (error) => {
+                console.log('FAILED...', error);
+            },
+        );
+
+    }
+
     function login() {
         $("#userlogin").validate();
         if ($("#userlogin").valid()) {
@@ -156,12 +206,29 @@
             }).then((response) => response.text()).then((value) => {
                 if (value === "success") {
                     // window.location.href ="/user-home";
-                    window.location.href = "/book-now";
+                    //window.location.href = "/book-now";   
+                    document.getElementById("userloginform").style.display = "none";
+
+                    let otp = Math.floor(Math.random() * 10000);
+                    localStorage.setItem("otp", otp);
+                    sendEmail();
+                    
+                    document.getElementById("userverifyotp").style.display = "block";
+
 
                 } else {
                     document.getElementById("errmsg").innerHTML = "<div class='alert alert-danger mt-2'>Incorrect Email or Password</div>";
                 }
             })
+        }
+    }
+
+    function verifyotp(){
+        let enteredotp = document.getElementById("otp").value;
+        if(enteredotp == localStorage.getItem("otp")){
+            window.location.href ="/user-home";   
+        } else {
+            document.getElementById("errmsg").innerHTML = "<div class='alert alert-danger mt-2'>Invalid OTP</div>";
         }
     }
 </script>
