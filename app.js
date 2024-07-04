@@ -1,7 +1,7 @@
 let express = require("express");
 let app = express();
-// let mysql = require('mysql');
-let mysql2 = require('mysql2');
+let mysql = require('mysql');
+// let mysql2 = require('mysql2');
 let path = require('path');
 let fileUpload = require('express-fileupload');
 let session = require('express-session');
@@ -11,20 +11,20 @@ let session = require('express-session');
 let {updateHotel} = require('./controller/adminController')
 
 /* db connection */
-let conn = mysql2.createConnection({
-    host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
-    user: "avnadmin",
-    password: "AVNS_MEcxmr-rbReoCIFyj4t",
-    database: "defaultdb",
-    port: "24387"
-})
-
-// let conn = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "system",
-//     database: "node_holiday_packages"
+// let conn = mysql2.createConnection({
+//     host: "mysql-31067687-vaibhavaggarwal056-9c09.a.aivencloud.com",
+//     user: "avnadmin",
+//     password: "AVNS_MEcxmr-rbReoCIFyj4t",
+//     database: "defaultdb",
+//     port: "24387"
 // })
+
+let conn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "system",
+    database: "node_holiday_packages"
+})
 
 conn.connect((err) => {
     if (err) {
